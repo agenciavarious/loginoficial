@@ -2,7 +2,7 @@
 
 function validaAutenticacao($link,$tipo)
 {
-    
+    include_once 'classes/Bcrypt.class.php';
     echo '<meta charset=UTF-8>';
     session_start();
     if(!isset($_SESSION['email']) or !isset($_SESSION['senha'])) 
@@ -32,7 +32,7 @@ function validaAutenticacao($link,$tipo)
           $usuarios = mysql_fetch_assoc($result);
           $senhaUsuario = $usuarios['SENHA_USUARIO'];
           $tipos = $usuarios['COD_TIPO'];
-          if ($senha !== $senhaUsuario) {
+          if(!Bcrypt::check ($senha,$senhaUsuario)){
           session_destroy();
           
              echo '<script>
