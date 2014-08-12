@@ -6,7 +6,7 @@ echo '<meta charset=UTF-8>';
 // não tiver sido incluido anteriormente 
 
 include_once 'conexao/conecta.inc';
-
+include_once 'classes/Bcrypt.class.php';
 $email = isset($_POST['email'])?$_POST['email']:null;
 $senha = isset($_POST['senha'])?$_POST['senha']:null;
 
@@ -29,7 +29,7 @@ $senhaUsuario = $usuarios[2];
 $tipoUsuario = $usuarios[13];
 //$tipoUsuario = $usuarios['COD_TIPO'];
 
-if($senha !== $senhaUsuario) {
+if(!Bcrypt::check($senha, $senhaUsuario))
     echo '<a href=frmLogin.php>Senha não confere  ! </a>';
     
 } else {
